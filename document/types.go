@@ -9,6 +9,7 @@ type DocumentType struct {
 	ActiveFrom           time.Time             `json:"activeFrom"`
 	ActiveTo             *time.Time            `json:"activeTo"`
 	DocumentTypeVersions []DocumentTypeVersion `json:"documentTypeVersions"`
+	WorkflowParameters   []WorkflowParameter   `json:"workflowParameters"`
 }
 
 type DocumentTypeVersion struct {
@@ -19,4 +20,12 @@ type DocumentTypeVersion struct {
 	ActiveTo      *time.Time `json:"activeTo"`
 	VersionNumber float64    `json:"versionNumber"`
 	Status        string     `json:"status"`
+}
+
+type WorkflowParameter struct {
+	ID         int64      `json:"id"`
+	Parameter  string     `json:"parameter"`
+	Value      int64      `json:"value"`
+	ActiveFrom time.Time  `json:"activeFrom"`
+	ActiveTo   *time.Time `json:"activeTo"`
 }

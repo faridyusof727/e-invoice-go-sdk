@@ -92,4 +92,16 @@ if err != nil {
 }
 ```
 
+#### Get Document Type
+
+This function allows taxpayer ERP system to retrieve the details of single document type that contains structure definitions of the document.
+
+```go
+documentId := 1
+d, err := doc.DocumentType(context.Background(), documentId)
+if err != nil {
+    panic(err)
+}
+```
+
 Note: This repository is still in progress. Contributors are welcomed.
