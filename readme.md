@@ -37,6 +37,8 @@ func Example() {
   }
 
   // data.AccessToken <-- this would be your access token
+  // or
+  // you could use authClient.AccessToken()
 
   // Getting all document types
   documentClient := document.New(
