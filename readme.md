@@ -9,7 +9,6 @@ The E-Invoice LHDN Go Wrapper is an open-source project designed to simplify the
 ```go
 import (
   "context"
-  "testing"
 
   "github.com/faridyusof727/e-invoice-go-sdk/auth"
 )
