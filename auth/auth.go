@@ -32,7 +32,6 @@ func IsSandBox(y bool) func(o *Options) {
 	}
 }
 
-
 // New creates a new Authenticator instance.
 //
 // It takes a variable number of functions that modify the Options.

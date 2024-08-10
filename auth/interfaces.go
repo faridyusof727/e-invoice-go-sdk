@@ -10,6 +10,7 @@ type Authenticator interface {
 
 	// LoginAsIntermediary logs in as an intermediary.
 	//
-	// This function is not implemented yet and will panic if called.
-	LoginAsIntermediary()
+	// It takes a context.Context as a parameter.
+	// Returns a pointer to a Response and an error.
+	LoginAsIntermediary(ctx context.Context, onBehalfOf string) (*Response, error)
 }
