@@ -11,15 +11,15 @@ import (
 // LoginAsIntermediary implements Authenticator.
 func (c *Client) LoginAsIntermediary(ctx context.Context, onBehalfOf string) (*Response, error) {
 	form := url.Values{}
-	form.Add("client_id", c.Request.ClientID)
-	form.Add("client_secret", c.Request.ClientSecret)
-	form.Add("grant_type", c.Request.GrantType)
-	form.Add("scope", c.Request.Scope)
+	form.Add("client_id", c.Conf.ClientID)
+	form.Add("client_secret", c.Conf.ClientSecret)
+	form.Add("grant_type", "client_credentials")
+	form.Add("scope", "InvoicingAPI")
 
 	response := &Response{}
 
 	err := requests.
-		URL(c.Url).
+		URL(c.Conf.Url).
 		Method("POST").
 		Path("/connect/token").
 		Header("onbehalfof", onBehalfOf).
@@ -38,15 +38,15 @@ func (c *Client) LoginAsIntermediary(ctx context.Context, onBehalfOf string) (*R
 // LoginAsTaxPayer implements Authenticator.
 func (c *Client) LoginAsTaxPayer(ctx context.Context) (*Response, error) {
 	form := url.Values{}
-	form.Add("client_id", c.Request.ClientID)
-	form.Add("client_secret", c.Request.ClientSecret)
-	form.Add("grant_type", c.Request.GrantType)
-	form.Add("scope", c.Request.Scope)
+	form.Add("client_id", c.Conf.ClientID)
+	form.Add("client_secret", c.Conf.ClientSecret)
+	form.Add("grant_type", "client_credentials")
+	form.Add("scope", "InvoicingAPI")
 
 	response := &Response{}
 
 	err := requests.
-		URL(c.Url).
+		URL(c.Conf.Url).
 		Method("POST").
 		Path("/connect/token").
 		BodyForm(form).

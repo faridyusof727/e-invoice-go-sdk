@@ -14,7 +14,7 @@ func (c *Client) AllDocumentTypes(ctx context.Context) ([]DocumentType, error) {
 	}{}
 
 	err := requests.
-		URL(c.baseUrl).
+		URL(c.authClient.Config().Url).
 		Method("GET").
 		Path("/api/v1.0/documenttypes").
 		Header("Accept", "application/json").

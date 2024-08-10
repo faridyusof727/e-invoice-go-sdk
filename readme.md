@@ -6,52 +6,89 @@ The E-Invoice LHDN Go Wrapper is an open-source project designed to simplify the
 
 ## Usage
 
+### Authentication
+
+In E-Invoice, there are two types of auth
+
+* Login as Taxpayer System
+* Login as Intermediary System
+
+#### Login as Taxpayer System
+
 ```go
 import (
-  "context"
-
-  "github.com/faridyusof727/e-invoice-go-sdk/auth"
-  "github.com/faridyusof727/e-invoice-go-sdk/configs"
-  "github.com/faridyusof727/e-invoice-go-sdk/document"
+    "context"
+    
+    "github.com/faridyusof727/e-invoice-go-sdk/auth"
+    "github.com/faridyusof727/e-invoice-go-sdk/configs"
 )
 
-func Example() {
-  request := &configs.Request{
-    ClientID:     "xxx",
-    ClientSecret: "xxx",
-    GrantType:    "client_credentials",
-    Scope:        "InvoicingAPI",
-  }
+// Configuration 
+config := &configs.Config{
+    ClientID:     "<your-client-id-here>",
+    ClientSecret: "<your-client-secret-here>",
+}
 
-  authClient := auth.New(
-    configs.WithRequest(request),
-    configs.IsSandBox(true), // set to false or just remove this line for prod
-  )
+// If the integration is to Sandbox environment
+config.SandBox()
 
-  data, err := authClient.LoginAsIntermediary(context.Background(), "IGXXXXXXXXXXXX")
-  // or
-  data, err := authClient.LoginAsTaxPayer(context.Background())
+// Otherwise
+config.Prod()
 
-  if err != nil {
+authClient := auth.New(config)
+data, err := authClient.LoginAsTaxPayer(context.TODO())
+
+if err != nil {
     panic(err)
-  }
+}
+```
 
-  // data.AccessToken <-- this would be your access token
-  // or
-  // you could use authClient.AccessToken()
+#### Login as Intermediary System
 
-  // Getting all document types
-  documentClient := document.New(
-    authClient, 
-    configs.IsSandBox(true)
-  )
+> In Malaysia, the Tax Identification Number (TIN), also known as the Income Tax Number, is a unique identifier assigned to individuals and entities who are registered taxpayers with the Inland Revenue Board of Malaysia (LHDN).
 
-  doc, err := documentClient.AllDocumentTypes(context.Background())
-  if err != nil {
+This function is used to authenticate the ERP system associated with an intermediary that is representing a taxpayer (acting on behalf of a specific taxpayer) calling and issue access token.
+
+```go
+tin := "<your-tin-num>"
+data, err := authClient.LoginAsIntermediary(context.TODO(), tin)
+
+if err != nil {
     panic(err)
-  }
+}
+```
 
-  fmt.Printf("data: %+v", doc) // All document types supported by e-invoice
+#### Getting the Access Token
+
+Although, there's no need to use this function, but for whatever reasons, if you need to get the access token on demand, you can always use:
+
+```go
+token := authClient.AccessToken()
+```
+
+### Platform: Document Lookups
+
+#### Get All Document Types
+
+This allows taxpayer's systems to retrieve list of document types published by the MyInvois System. There are multiple types of documents supported by the solution and this allows taxpayer ERP systems to retrieve their definitions through this function call.
+
+```go
+import (
+    "context"
+    
+    "github.com/faridyusof727/e-invoice-go-sdk/document"
+)
+
+// `authClient` is from previous initialization
+doc, err := document.New(authClient)
+
+if err != nil {
+    panic(err)
+}
+
+d, err := doc.AllDocumentTypes(context.Background())
+if err != nil {
+    panic(err)
 }
 ```
 

@@ -1,6 +1,10 @@
 package auth
 
-import "context"
+import (
+	"context"
+
+	"github.com/faridyusof727/e-invoice-go-sdk/configs"
+)
 
 type Authenticator interface {
 	// LoginAsTaxPayer logs in as a tax payer.
@@ -19,4 +23,10 @@ type Authenticator interface {
 	// It takes no parameters.
 	// Returns a string representing the access token.
 	AccessToken() string
+
+	// Config returns the configuration for the authenticator.
+	//
+	// It takes no parameters.
+	// Returns a pointer to a configs.Config.
+	Config() *configs.Config
 }

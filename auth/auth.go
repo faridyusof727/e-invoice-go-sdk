@@ -5,30 +5,27 @@ import (
 )
 
 type Client struct {
-	Request *configs.Request
-	Url     string
-	Token   string
+	Conf  *configs.Config
+	Token string
 }
 
-// New creates a new Authenticator instance.
-//
-// It takes a variable number of functions that modify the Options.
-// Returns an Authenticator instance.
-func New(o ...func(o *configs.Options)) Authenticator {
-	opts := &configs.Options{}
-	opts.Url = "https://api.myinvois.hasil.gov.my"
-
-	for _, f := range o {
-		f(opts)
+func New(c *configs.Config) Authenticator {
+	if c == nil {
+		c = &configs.Config{}
+		c.Prod()
 	}
 
 	return &Client{
-		Request: opts.Request,
-		Url:     opts.Url,
+		Conf: c,
 	}
 }
 
 // AccessToken implements Authenticator.
 func (c *Client) AccessToken() string {
 	return c.Token
+}
+
+// Config implements Authenticator.
+func (c *Client) Config() *configs.Config {
+	return c.Conf
 }
