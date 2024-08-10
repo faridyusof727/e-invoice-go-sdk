@@ -27,6 +27,8 @@ func AuthExample() {
   )
 
   data, err := authClient.LoginAsIntermediary(context.Background(), "IGXXXXXXXXXXXX")
+  // or
+  data, err := authClient.LoginAsTaxPayer(context.Background())
 
   if err != nil {
     panic(err)
