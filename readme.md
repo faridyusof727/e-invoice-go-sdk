@@ -12,6 +12,7 @@ import (
 
   "github.com/faridyusof727/e-invoice-go-sdk/auth"
   "github.com/faridyusof727/e-invoice-go-sdk/configs"
+  "github.com/faridyusof727/e-invoice-go-sdk/document"
 )
 
 func Example() {
