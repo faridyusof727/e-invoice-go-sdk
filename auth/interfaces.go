@@ -1,0 +1,15 @@
+package auth
+
+import "context"
+
+type Authenticator interface {
+	// LoginAsTaxPayer logs in as a tax payer.
+	//
+	// It takes a context.Context as a parameter and returns a pointer to a Response and an error.
+	LoginAsTaxPayer(ctx context.Context) (*Response, error)
+
+	// LoginAsIntermediary logs in as an intermediary.
+	//
+	// This function is not implemented yet and will panic if called.
+	LoginAsIntermediary()
+}
