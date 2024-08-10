@@ -30,6 +30,8 @@ func (c *Client) LoginAsIntermediary(ctx context.Context, onBehalfOf string) (*R
 		return nil, fmt.Errorf("failed to login: %w", err)
 	}
 
+	c.Token = response.AccessToken
+
 	return response, nil
 }
 
@@ -53,6 +55,8 @@ func (c *Client) LoginAsTaxPayer(ctx context.Context) (*Response, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to login: %w", err)
 	}
+
+	c.Token = response.AccessToken
 
 	return response, nil
 }

@@ -1,10 +1,13 @@
 package auth
 
-import "github.com/faridyusof727/e-invoice-go-sdk/configs"
+import (
+	"github.com/faridyusof727/e-invoice-go-sdk/configs"
+)
 
 type Client struct {
 	Request *configs.Request
 	Url     string
+	Token   string
 }
 
 // New creates a new Authenticator instance.
@@ -23,4 +26,9 @@ func New(o ...func(o *configs.Options)) Authenticator {
 		Request: opts.Request,
 		Url:     opts.Url,
 	}
+}
+
+// AccessToken implements Authenticator.
+func (c *Client) AccessToken() string {
+	return c.Token
 }

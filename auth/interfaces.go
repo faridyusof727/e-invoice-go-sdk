@@ -13,4 +13,10 @@ type Authenticator interface {
 	// It takes a context.Context as a parameter.
 	// Returns a pointer to a Response and an error.
 	LoginAsIntermediary(ctx context.Context, onBehalfOf string) (*Response, error)
+
+	// AccessToken returns the access token for the authenticator.
+	//
+	// It takes no parameters.
+	// Returns a string representing the access token.
+	AccessToken() string
 }

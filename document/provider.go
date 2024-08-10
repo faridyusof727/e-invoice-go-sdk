@@ -13,17 +13,12 @@ func (c *Client) AllDocumentTypes(ctx context.Context) ([]DocumentType, error) {
 		Result []DocumentType `json:"result"`
 	}{}
 
-	authResponse, err := c.authClient.LoginAsTaxPayer(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("failed to login: %w", err)
-	}
-
-	err = requests.
+	err := requests.
 		URL(c.baseUrl).
 		Method("GET").
 		Path("/api/v1.0/documenttypes").
 		Header("Accept", "application/json").
-		Header("Authorization", fmt.Sprintf("Bearer %s", authResponse.AccessToken)).
+		Header("Authorization", fmt.Sprintf("Bearer %s", c.authClient.AccessToken())).
 		Header("Accept-Language", "en").
 		Header("Content-Type", "application/json").
 		ToJSON(dataResponse).
