@@ -11,10 +11,11 @@ import (
   "context"
 
   "github.com/faridyusof727/e-invoice-go-sdk/auth"
+  "github.com/faridyusof727/e-invoice-go-sdk/configs"
 )
 
-func AuthExample() {
-  request := &auth.Request{
+func Example() {
+  request := &configs.Request{
     ClientID:     "xxx",
     ClientSecret: "xxx",
     GrantType:    "client_credentials",
@@ -22,8 +23,8 @@ func AuthExample() {
   }
 
   authClient := auth.New(
-    auth.WithRequest(request),
-    auth.IsSandBox(true), // set to false or just remove this line for prod
+    configs.WithRequest(request),
+    configs.IsSandBox(true), // set to false or just remove this line for prod
   )
 
   data, err := authClient.LoginAsIntermediary(context.Background(), "IGXXXXXXXXXXXX")
@@ -35,6 +36,19 @@ func AuthExample() {
   }
 
   // data.AccessToken <-- this would be your access token
+
+  // Getting all document types
+  documentClient := document.New(
+    authClient, 
+    configs.IsSandBox(true)
+  )
+
+  doc, err := documentClient.AllDocumentTypes(context.Background())
+  if err != nil {
+    panic(err)
+  }
+
+  fmt.Printf("data: %+v", doc) // All document types supported by e-invoice
 }
 ```
 
