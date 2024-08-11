@@ -1,10 +1,11 @@
-package document
+package document_type
 
 import (
 	"context"
 	"fmt"
 
 	"github.com/carlmjohnson/requests"
+	"github.com/faridyusof727/e-invoice-go-sdk/constants"
 )
 
 // AllDocumentTypes implements Provider.
@@ -17,10 +18,10 @@ func (c *Client) AllDocumentTypes(ctx context.Context) ([]DocumentType, error) {
 		URL(c.authClient.Config().Url).
 		Method("GET").
 		Path("/api/v1.0/documenttypes").
-		Header("Accept", "application/json").
+		Header("Accept", constants.HttpHeaderContentTypeJson).
 		Header("Authorization", fmt.Sprintf("Bearer %s", c.authClient.AccessToken())).
 		Header("Accept-Language", "en").
-		Header("Content-Type", "application/json").
+		Header("Content-Type", constants.HttpHeaderContentTypeJson).
 		ToJSON(dataResponse).
 		Fetch(ctx)
 	if err != nil {
@@ -38,10 +39,10 @@ func (c *Client) DocumentType(ctx context.Context, id int64) (*DocumentType, err
 		URL(c.authClient.Config().Url).
 		Method("GET").
 		Pathf("/api/v1.0/documenttypes/%d", id).
-		Header("Accept", "application/json").
+		Header("Accept", constants.HttpHeaderContentTypeJson).
 		Header("Authorization", fmt.Sprintf("Bearer %s", c.authClient.AccessToken())).
 		Header("Accept-Language", "en").
-		Header("Content-Type", "application/json").
+		Header("Content-Type", constants.HttpHeaderContentTypeJson).
 		ToJSON(dt).
 		Fetch(ctx)
 	if err != nil {

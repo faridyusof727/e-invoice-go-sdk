@@ -76,11 +76,11 @@ This allows taxpayer's systems to retrieve list of document types published by t
 import (
     "context"
     
-    "github.com/faridyusof727/e-invoice-go-sdk/document"
+    "github.com/faridyusof727/e-invoice-go-sdk/document_type"
 )
 
 // `authClient` is from previous initialization
-doc, err := document.New(authClient)
+doc, err := document_type.New(authClient)
 
 if err != nil {
     panic(err)
