@@ -104,4 +104,4 @@ if err != nil {
 }
 ```
 
-Note: This repository is still in progress. Contributors are welcomed.
+Note: This repository is still in progress. Contributors are more and welcomed.
