@@ -2,7 +2,6 @@ package notification
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"strconv"
 	"time"
@@ -12,9 +11,11 @@ import (
 )
 
 // Notifications implements Provider.
-func (c *Client) Notifications(ctx context.Context, filter *Filter) (string, error) {
+func (c *Client) Notifications(ctx context.Context, filter *Filter) ([]Result, error) {
 
-	dataResponse := ""
+	dataResponse := &struct {
+		Result []Result `json:"result"`
+	}{}
 
 	req := requests.
 		URL(c.authClient.Config().Url).
@@ -52,10 +53,10 @@ func (c *Client) Notifications(ctx context.Context, filter *Filter) (string, err
 		}
 	}
 
-	err := req.ToString(&dataResponse).Fetch(ctx)
+	err := req.ToJSON(&dataResponse).Fetch(ctx)
 	if err != nil {
-		return "", errors.New("failed to get notifications: " + err.Error())
+		return nil, fmt.Errorf("failed to get notification: %w", err)
 	}
 
-	return dataResponse, nil
+	return dataResponse.Result, nil
 }
