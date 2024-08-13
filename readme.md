@@ -104,4 +104,29 @@ if err != nil {
 }
 ```
 
-Note: This repository is still in progress. Contributors are welcomed.
+### Get Notification
+
+This function allows taxpayer ERP system to retrieve the notifications that are sent by the MyInvois System.
+```go
+filter := &notification.Filter {
+		DateFrom: time.Now().Add(-time.Hour * 24 * 7),
+		DateTo:   time.Now(),
+		Type:     "2",
+		Language: "en",
+		Status:   "delivered",
+		Channel:  "email",
+		PageNo:   1,
+		PageSize: 10,
+	}
+
+	res, err := nClient.Notifications(context.Background(), filter)
+
+	if err != nil {
+		t.Errorf("failed to get notifications: %v", err)
+	}
+
+	t.Logf("Notifications: %v", res)
+```
+
+
+Note: This repository is still in progress. Contributors are more and welcomed.
