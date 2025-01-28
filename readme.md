@@ -129,4 +129,28 @@ filter := &notification.Filter {
  t.Logf("Notifications: %v", res)
 ```
 
+### Processing Invoice
+
+#### Validate Taxpayer's TIN
+
+This function allows taxpayer's ERP system to validate specific Tax Identification Number (TIN) before adding this number to an invoice and issuing the invoice.
+
+```go
+// Remember to invoke LoginAsTaxPayer() or LoginAsIntermediary() before 
+// passing the authClient to the taxpayer.NewClient() function.
+tp, err := taxpayer.NewClient(authClient)
+if err != nil {
+    t.Fatal(err)
+}
+
+// Validate the taxpayer identification details.
+err = tp.Validate(context.Background(), "IGXXXXXXXXXXX", taxpayer.IDTypeNRIC, "888888888888")
+if err != nil {
+    t.Fatal(err)
+}
+
+// If there is no error, the validation is successful.
+t.Log("success")
+```
+
 Note: This repository is still in progress. Contributors are more and welcomed.
