@@ -31,11 +31,11 @@ func (i *AuthImpl) LoginAsIntermediary(ctx context.Context, onBehalfOf string) (
 		Post(fmt.Sprintf("%s/connect/token", i.serviceConfig.GetBaseUrl()))
 
 	if err != nil {
-		return nil, fmt.Errorf("failed to login: %w", err)
+		return nil, fmt.Errorf("failed to login as intermediary: %w", err)
 	}
 
 	if res.IsErrorState() {
-		return nil, fmt.Errorf("failed to login: %s", errRes.Error)
+		return nil, fmt.Errorf("failed to login as intermediary: %s", errRes.Error)
 	}
 
 	return auth, nil
