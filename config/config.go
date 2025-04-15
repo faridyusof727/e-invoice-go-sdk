@@ -23,6 +23,6 @@ func (s *Service) GetBaseUrl() string {
 	case EnvironmentSandbox:
 		return "https://preprod-api.myinvois.hasil.gov.my"
 	default:
-		return ""
+		return "https://api.myinvois.hasil.gov.my" // Fallback to a safe default URL
 	}
 }
