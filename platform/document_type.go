@@ -33,7 +33,7 @@ func (c *DocumentTypeImpl) AllDocumentTypes(ctx context.Context) ([]DocumentType
 		SetContext(ctx).
 		SetHeaders(map[string]string{
 			"Authorization":   fmt.Sprintf("Bearer %s", c.auth.AccessToken),
-			"Acccept":         "application/json",
+			"Accept":          "application/json",
 			"Content-Type":    "application/json",
 			"Accept-Language": "en",
 		}).
