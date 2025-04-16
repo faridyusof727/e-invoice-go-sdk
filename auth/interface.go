@@ -4,7 +4,7 @@ import "context"
 
 // Client interface defines methods for authentication operations.
 //
-// It provides functionality to authenticate as different entities 
+// It provides functionality to authenticate as different entities
 // in the e-invoice system and retrieve authentication tokens.
 type Client interface {
 	// LoginAsTaxPayer authenticates as a tax payer and returns authentication details.

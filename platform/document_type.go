@@ -9,21 +9,21 @@ import (
 	"github.com/imroc/req/v3"
 )
 
-type DocumentTypeClient struct {
+type DocumentTypeImpl struct {
 	serviceConfig *config.Service
 	auth          *auth.Auth
 }
 
 // NewDocumentType creates a new DocumentType client using the provided auth client and service config.
-func NewDocumentType(serviceConfig *config.Service, auth *auth.Auth) (*DocumentTypeClient, error) {
-	return &DocumentTypeClient{
+func NewDocumentType(serviceConfig *config.Service, auth *auth.Auth) (DocumentTypeClient, error) {
+	return &DocumentTypeImpl{
 		serviceConfig: serviceConfig,
 		auth:          auth,
 	}, nil
 }
 
 // AllDocumentTypes fetches all document types from the platform API.
-func (c *DocumentTypeClient) AllDocumentTypes(ctx context.Context) ([]DocumentType, error) {
+func (c *DocumentTypeImpl) AllDocumentTypes(ctx context.Context) ([]DocumentType, error) {
 	baseURL := c.serviceConfig.GetBaseUrl()
 
 	dataResponse := &Result{}

@@ -18,6 +18,7 @@ go get github.com/faridyusof727/e-invoice-go-sdk
 - Support for both sandbox and production environments
 - Easy configuration management
 - Intermediary login support
+- Document type client for retrieving available document types
 
 ## Usage
 
@@ -69,6 +70,42 @@ if err != nil {
 
 // Use the access token
 token := auth.AccessToken
+```
+
+### Retrieve All Document Types
+
+```go
+import (
+    "context"
+    "github.com/faridyusof727/e-invoice-go-sdk/platform"
+    "github.com/faridyusof727/e-invoice-go-sdk/auth"
+    "github.com/faridyusof727/e-invoice-go-sdk/config"
+)
+
+// Assume you have already initialized serviceConfig and authClient as shown above
+
+// Perform login to get an auth token
+auth, err := authClient.LoginAsTaxPayer(context.Background())
+if err != nil {
+    // Handle error
+}
+
+// Create a DocumentType client
+docTypeClient, err := platform.NewDocumentType(serviceConfig, auth)
+if err != nil {
+    // Handle error
+}
+
+// Retrieve all document types
+docTypes, err := docTypeClient.AllDocumentTypes(context.Background())
+if err != nil {
+    // Handle error
+}
+
+// Use the list of document types
+for _, docType := range docTypes {
+    // Process each docType
+}
 ```
 
 ## Configuration
